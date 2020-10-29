@@ -1,0 +1,45 @@
+Custom Functions for each Scenarios
+
+Sometimes, a zone that we want to crowd-count may be not be covered by One Camera.
+Esp, our demo use case, `Naplab` is such case so we need to combine frames from multiple
+cameras to get a complete bird's eye view scene. 
+
+1. Config file for each Scenarios
+   - padding information for each camera frame
+   - place, (where to apply padding information)
+   - scaling dimensions for each camera frame
+   - Region of Interest
+        1. top left
+        2. top right
+        3. bot right
+        4. bot left
+
+2. cameras
+
+If we need to combine frames for bird's eye view, we need to have cameras_ids in processing order.
+example in `Naplab - [221, 220, 218, 219]
+
+3. create_region_be_view Function
+- Apply resize to given camera frames according to cfg file and cameras order
+- Compute Bird's eye view transformation with ROI, provided from cfg
+- resulted bird's eye view dimensions is scale, provided from cfg
+- Do that for frames from all cameras, in given order
+
+4. create_unified_bird_eye_view Function
+- Concatenate images from given list to get complete bird's eye view image of a scene
+- This function needs to be written for every Scenarios because
+  1. camera frames position and angle are different for every scenario.
+  2. manaual concatenation process so requires very specific coordinates
+  3. Dimenions of unified bird's eye view needs to be proportional to real dimenions
+
+5. extracte_calibrated_centroids Function
+- Detected person centroids coordinates are only for respective bird's eye image 
+- Therefore, after concatenation, the centorids are changed so needs to tune them again
+  to get true coordinates on create_unified_bird's eye view image
+
+6. compute_crowd_count_per_zone Function
+- Designated Zones also depends on camera angles, placement, and Region
+- Pipeline is 
+    1. Seperate the unified bird's eye view image according to zones
+    2. Count the number of red pixels in each zone which is the count of people
+- Therefore, we also have to write a custom function for a scenario

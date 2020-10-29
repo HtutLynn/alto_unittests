@@ -1,0 +1,14 @@
+1. Use a TensorRT model with batch image data input
+   - head_yolov5_4.trt model is TensorRT model which accepts 4 x Height x Width as input
+   - better preprocessing function
+   - better postprocessing function - c++ plugins
+
+2. create_region_be_view Function
+   1. Instead of passing image paths and reading again, passing already-read image data is much more efficient
+   2. Check if padding the cameras frames is required or not since padding operation takes some time
+
+3. Try training the model with smaller image dimensions and more data
+   Because currently, inference time is affected mainly by input data size.
+   Current model input dimensions : 1024 
+   Potentials : 720, x, x
+   More data : brainwash dataset is added so needs to retrain for better accuracy
