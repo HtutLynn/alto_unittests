@@ -1,11 +1,10 @@
 import os
-import cv2
 import glob
 import time
 import argparse
-from cv2 import data
+
+import cv2
 import numpy as np
-from numpy.lib.function_base import _extract_dispatcher
 
 # import custom libraries
 from utils.transform import Transform
