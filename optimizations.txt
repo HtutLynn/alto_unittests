@@ -12,3 +12,6 @@
    Current model input dimensions : 1024 
    Potentials : 720, x, x
    More data : brainwash dataset is added so needs to retrain for better accuracy
+
+3. For Pre-processing and postprocessing,
+   - Use Torch functions
