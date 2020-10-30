@@ -496,12 +496,14 @@ def main(args):
 
     # write the heatmap
     cv2.imwrite(str(os.path.abspath(save_dir)) + "/heatmap.jpg", heatmap)
+    t6 = time.time()
 
     print("Inference time : {}".format(t1 - t0))
     print("Bird's eye image generation : {}".format(t2 - t1))
     print("Unified bird's eyeview generation : {}".format(t3 - t2))
     print("Centroids calibration : {}".format(t4 - t3))
     print("Occupant count per zone : {}".format(t5 - t4))
+    print("Density map generation : {}".format(t6 - t5))
 
     """
     Debug code segment : Write generated unified bird's eye view
